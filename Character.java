@@ -1,21 +1,28 @@
+
 package com.unpri.charactermanager.model;
 
 public class Character {
+
+    // Atribut
     private int id;
     private String name;
     private CharacterType type;
     private int level;
     private int hitPoints;
     private int attackPower;
+    private int mana; // Mini-Challenge 1
 
-    // Constructor pertama untuk karakter baru
+    // Constructor pertama
     public Character(String name, CharacterType type, int level) {
         this.name = name;
         this.type = type;
-        setLevel(level);
+        this.level = level;
+        this.hitPoints = 100 + (level * 10);
+        this.attackPower = 10 + (level * 2);
+        this.mana = 0;
     }
 
-    // Constructor kedua untuk data lengkap
+    // Constructor kedua
     public Character(int id, String name, CharacterType type,
                      int level, int hitPoints, int attackPower) {
         this.id = id;
@@ -24,49 +31,87 @@ public class Character {
         this.level = level;
         this.hitPoints = hitPoints;
         this.attackPower = attackPower;
+        this.mana = 0;
     }
 
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
+    // Getter dan setter
+    public int getId() {
+        return id;
+    }
 
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
+    public void setId(int id) {
+        this.id = id;
+    }
 
-    public CharacterType getType() { return type; }
-    public void setType(CharacterType type) { this.type = type; }
+    public String getName() {
+        return name;
+    }
 
-    public int getLevel() { return level; }
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public CharacterType getType() {
+        return type;
+    }
+
+    public void setType(CharacterType type) {
+        this.type = type;
+    }
+
+    public int getLevel() {
+        return level;
+    }
 
     public void setLevel(int level) {
         if (level < 1) {
             throw new IllegalArgumentException(
-                "Level harus minimal 1"
+                "Level tidak boleh kurang dari 1"
             );
         }
 
         this.level = level;
-        this.hitPoints = 100 + level * 10;
-        this.attackPower = level * 5;
+        this.hitPoints = 100 + (level * 10);
+        this.attackPower = 10 + (level * 2);
     }
 
-    public int getHitPoints() { return hitPoints; }
+    public int getHitPoints() {
+        return hitPoints;
+    }
+
     public void setHitPoints(int hitPoints) {
         this.hitPoints = hitPoints;
     }
 
-    public int getAttackPower() { return attackPower; }
+    public int getAttackPower() {
+        return attackPower;
+    }
+
     public void setAttackPower(int attackPower) {
         this.attackPower = attackPower;
     }
 
+    // Mini-Challenge 2: Getter dan setter mana
+    public int getMana() {
+        return mana;
+    }
+
+    public void setMana(int mana) {
+        if (mana < 0) {
+            throw new IllegalArgumentException(
+                "Mana tidak boleh negatif"
+            );
+        }
+
+        this.mana = mana;
+    }
+
+    // Mini-Challenge 3: Memeriksa apakah karakter masih hidup
     public boolean isAlive() {
         return hitPoints > 0;
     }
 
-    public void levelUp() {
-        setLevel(level + 1);
-    }
-
+    // Mini-Challenge 4: Menampilkan mana pada toString()
     @Override
     public String toString() {
         return "Character{" +
@@ -76,6 +121,7 @@ public class Character {
                 ", level=" + level +
                 ", hitPoints=" + hitPoints +
                 ", attackPower=" + attackPower +
+                ", mana=" + mana +
                 '}';
     }
 }
